@@ -1,0 +1,1788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memory Wraps — Handcrafted Jewelry & Accessories</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Inter', sans-serif; color: #1a1a1a; background: #fafaf7; line-height: 1.6; }
+h1, h2, h3, h4 { font-family: 'Cormorant Garamond', serif; font-weight: 500; letter-spacing: 0.5px; }
+a { text-decoration: none; color: inherit; }
+
+/* Navbar */
+.navbar { position: sticky; top: 0; background: #fafaf7; z-index: 100; border-bottom: 1px solid #eee; }
+.nav-container { max-width: 1300px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; }
+.logo { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 600; letter-spacing: 2px; cursor: pointer; }
+.nav-links { display: flex; list-style: none; gap: 35px; }
+.nav-links a { font-size: 14px; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; cursor: pointer; }
+.nav-links a:hover, .nav-links a.active { color: #b8956a; }
+.nav-icons { display: flex; gap: 20px; align-items: center; }
+.cart-icon { font-size: 18px; cursor: pointer; }
+.hamburger { display: none; cursor: pointer; font-size: 22px; }
+
+/* Pages */
+.page { display: none; }
+.page.active { display: block; }
+
+/* Hero */
+.hero { height: 85vh; background: linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.35)), url('https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=1600') center/cover; display: flex; align-items: center; justify-content: center; text-align: center; color: #fff; }
+.hero-content { max-width: 700px; padding: 20px; }
+.hero-subtitle { letter-spacing: 4px; font-size: 13px; margin-bottom: 20px; }
+.hero h1 { font-size: 68px; line-height: 1.1; margin-bottom: 20px; }
+.hero-text { font-size: 16px; margin-bottom: 35px; opacity: 0.95; }
+
+.btn-primary, .btn-secondary { display: inline-block; padding: 14px 40px; font-size: 13px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border: none; transition: all 0.3s; }
+.btn-primary { background: #fff; color: #1a1a1a; }
+.btn-primary:hover { background: #b8956a; color: #fff; }
+.btn-secondary { background: transparent; color: #1a1a1a; border: 1px solid #1a1a1a; }
+.btn-secondary:hover { background: #1a1a1a; color: #fff; }
+
+/* Sections */
+section { padding: 80px 40px; max-width: 1300px; margin: auto; }
+.section-title { text-align: center; font-size: 42px; margin-bottom: 10px; }
+.section-subtitle { text-align: center; color: #888; margin-bottom: 50px; font-size: 14px; }
+.center { text-align: center; margin-top: 40px; }
+
+/* Categories */
+.category-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+.category-grid.five { grid-template-columns: repeat(3, 1fr); }
+.category-grid.five .category-card:nth-child(4),
+.category-grid.five .category-card:nth-child(5) { grid-column: span 1; }
+@media (min-width: 901px) {
+  .category-grid.five { grid-template-columns: repeat(5, 1fr); }
+}
+.category-card { text-align: center; cursor: pointer; }
+.category-img { width: 100%; height: 350px; background-size: cover; background-position: center; margin-bottom: 20px; transition: transform 0.4s; }
+.category-card:hover .category-img { transform: scale(1.02); }
+.cat1 { background-image: url('sb14.jpg'); }
+.cat2 { background-image: url('ssc4.jpg'); }
+.cat3 { background-image: url('lsj4.jpg'); }
+.cat4 { background-image: url('matte Butterfly clips 1pc Rs 20.jpg'); }
+.cat5 { background-image: url('pc31.jpg'); }
+.cat6 { background-image: url('eea1.jpg'); }
+.category-card h3 { font-size: 24px; margin-bottom: 8px; }
+.category-card a { font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: #b8956a; }
+
+/* =============================================
+   3D CARD EFFECT — adapted from React component
+   ============================================= */
+
+/* The outer perspective wrapper (like CardContainer) */
+.card-container-3d {
+  perspective: 1000px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The inner rotating card (like CardBody) */
+.card-3d {
+  transform-style: preserve-3d;
+  transition: transform 0.15s ease-linear, box-shadow 0.3s;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.08);
+  overflow: visible;
+  width: 100%;
+  will-change: transform;
+}
+
+/* Children with depth layers (like CardItem) */
+.card-3d .product-img {
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-linear;
+  transform: translateZ(0px);
+  border-radius: 8px;
+}
+.card-3d:hover .product-img {
+  transform: translateZ(40px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+.card-3d .card-title {
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-linear;
+  transform: translateZ(0px);
+  display: block;
+}
+.card-3d:hover .card-title {
+  transform: translateZ(25px);
+}
+
+.card-3d .card-price {
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-linear;
+  transform: translateZ(0px);
+  display: block;
+}
+.card-3d:hover .card-price {
+  transform: translateZ(20px);
+}
+
+.card-3d .btn-add {
+  transform-style: preserve-3d;
+  transition: transform 0.2s ease-linear, background 0.3s;
+  transform: translateZ(0px);
+}
+.card-3d:hover .btn-add {
+  transform: translateZ(15px);
+}
+
+/* Products */
+.product-grid, .shop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+
+.product-card {
+  text-align: center;
+  padding: 20px;
+  /* No transform here — handled by card-3d */
+}
+
+.product-img { width: 100%; height: 280px; background-size: cover; background-position: center; margin-bottom: 15px; }
+.prod1 { background-image: url('ssb1.jpg'); }
+.prod2 { background-image: url('ssb2.jpg'); }
+.prod3 { background-image: url('ssb3.jpg'); }
+.prod4 { background-image: url('ssb4.jpg'); }
+.prod5 { background-image: url('ssb5.jpg'); }
+.prod6 { background-image: url('ssb6.jpg'); }
+.prod7 { background-image: url('ssb7.jpg'); }
+.prod8 { background-image: url('ssb8.jpg'); }
+.prod9 { background-image: url('ssb9.jpg');}
+.prod10{ background-image: url('ssb10.jpg') ;}
+.prod11{ background-image: url('ssb11.jpg') ;}
+.prod12{ background-image: url('ssb12.jpg') ;}
+.prod13{ background-image: url('sb13.jpg') ;}
+.prod14{ background-image: url('sb14.jpg') ;}
+.prod15{ background-image: url('dbb15.jpg') ;}
+.prod16{ background-image: url('eea1.jpg') ;}
+.prod17{ background-image: url('eea2.jpg') ;}
+.prod18{ background-image: url('eea3.jpg') ;}
+.prod19{ background-image: url('eea4.jpg') ;}
+.prod20{ background-image: url('ssc1.jpg') ;}
+.prod21{ background-image: url('ssc2.jpg') ;}
+.prod22{ background-image: url('ssc3.jpg') ;}
+.prod23{ background-image: url('ssc4.jpg') ;}
+.prod24{ background-image: url('ssc5.jpg') ;}
+.prod25{ background-image: url('ssc6.jpg') ;}
+.prod26{ background-image: url('ssc7.jpg') ;}
+.prod27{ background-image: url('ssc8.jpg') ;}
+.prod28{ background-image: url('ssc9.jpg') ;}
+.prod29{ background-image: url('ssc10.jpg') ;}
+.prod30{ background-image: url('ssc11.jpg') ;}
+.prod31{ background-image: url('ssc12.jpg') ;}
+.prod32{ background-image: url('ssc13.jpg') ;}
+.prod33{ background-image: url('lsj1.jpg') ;}
+.prod34{ background-image: url('lsj2.jpg') ;}
+.prod35{ background-image: url('lsj3.jpg') ;}
+.prod36{ background-image: url('lsj4.jpg') ;}
+.prod37{ background-image: url('lj1.jpg') ;}
+.prod38{ background-image: url('lj2.jpg') ;}
+.prod39{ background-image: url('lj3.jpg') ;}
+.prod40{ background-image: url('lj4.jpg') ;}
+.prod41{ background-image: url('lj5.jpg') ;}
+.prod42{ background-image: url('lj6.jpg') ;}
+.prod43{ background-image: url('lj7.jpg') ;}
+.prod44{ background-image: url('lj8.jpg') ;}
+.prod45{ background-image: url('lj9.jpg') ;}
+.prod46{ background-image: url('lj10.jpg') ;}
+.prod47{ background-image: url('se1.jpg') ;}
+.prod48{ background-image: url('se2.jpg') ;}
+.prod49{ background-image: url('se3.jpg') ;}
+.prod50{ background-image: url('se4.jpg') ;}
+.prod51{ background-image: url('se5.jpg') ;}
+.prod52{ background-image: url('se6.jpg') ;}
+.prod53{ background-image: url('se7.jpg') ;}
+.prod54{ background-image: url('se8.jpg') ;}
+.prod55{ background-image: url('se9.jpg') ;}
+.prod56{ background-image: url('se10.jpg') ;}
+.prod57{ background-image: url('se11.jpg') ;}
+.prod58{ background-image: url('se12.jpg') ;}
+.prod59{ background-image: url('pc1.jpg') ;}
+.prod60{ background-image: url('pc2.jpg') ;}
+.prod61{ background-image: url('pc3.jpg') ;}
+.prod62{ background-image: url('pc4.jpg') ;}
+.prod63{ background-image: url('pc5.jpg') ;}
+.prod64{ background-image: url('pc6.jpg') ;}
+.prod65{ background-image: url('pc7.jpg') ;}
+.prod66{ background-image: url('pc8.jpg') ;}
+.prod67{ background-image: url('pc9.jpg') ;}
+.prod68{ background-image: url('pc10.jpg') ;}
+.prod69{ background-image: url('pc11.jpg') ;}
+.prod70{ background-image: url('pc12.jpg') ;}
+.prod71{ background-image: url('pc13.jpg') ;}
+.prod72{ background-image: url('pc14.jpg') ;}
+.prod73{ background-image: url('pc15.jpg') ;}
+.prod74{ background-image: url('pc16.jpg') ;}
+.prod75{ background-image: url('pc17.jpg') ;}
+.prod76{ background-image: url('pc18.jpg') ;}
+.prod77{ background-image: url('pc19.jpg') ;}
+.prod78{ background-image: url('pc20.jpg') ;}
+.prod79{ background-image: url('pc21.jpg') ;}
+.prod80{ background-image: url('pc22.jpg') ;}
+.prod81{ background-image: url('pc23.jpg') ;}
+.prod82{ background-image: url('pc24.jpg') ;}
+.prod83{ background-image: url('pc25.jpg') ;}
+.prod84{ background-image: url('pc26.jpg') ;}
+.prod85{ background-image: url('pc27.jpg') ;}
+.prod86{ background-image: url('pc28.jpg') ;}
+.prod87{ background-image: url('pc29.jpg') ;}
+.prod88{ background-image: url('pc30.jpg') ;}
+.prod89{ background-image: url('pc31.jpg') ;}
+.prod90{ background-image: url('pc32.jpg') ;}
+.prod91{ background-image: url('pc33.jpg') ;}
+.prod92{ background-image: url('pc34.jpg') ;}
+.prod93{ background-image: url('pc35.jpg') ;}
+.prod94{ background-image: url('pc36.jpg') ;}
+.prod95{ background-image: url('black clip combo Rs 45.jpg') ;}
+.prod96{ background-image: url('butterfly clips 6pcs Rs 12.jpg') ;}
+.prod97{ background-image: url('butterfly combo Rs 60.jpg') ;}
+.prod98{ background-image: url('flower 3 pc clip Rs 30.jpg') ;}
+.prod99{ background-image: url('Flower clips 6pcs Rs12.jpg') ;}
+.prod100{ background-image: url('Hibiscus clip 3 pc Rs 30.jpg') ;}
+.prod101{ background-image: url('normal clip 3 pices Rs 20.jpg') ;}
+.prod102{ background-image: url('5 petal Flower clip 1pc Rs 20.jpg') ;}
+.prod103{ background-image: url('double colour flower clips 1pc Rs 20.jpg') ;}
+.prod104{ background-image: url('glass Sunflower  clip 1pc Rs 20.jpg') ;}
+.prod105{ background-image: url('glossy flower clips 1pc Rs20.jpg') ;}
+.prod106{ background-image: url('matte Butterfly clips 1pc Rs 20.jpg') ;}
+.prod107{ background-image: url('matte sunflower clip 1pc Rs 20 .jpg') ;}
+.prod108{ background-image: url('normal clip 1pc Rs 20.jpg') ;}
+.prod109{ background-image: url('Transparent clips 1pc Rs20.jpg') ;}
+.prod110{ background-image: url('black band  5 pices Rs 30 .jpg') ;}
+.prod111{ background-image: url('crunchy Rs 10.jpg') ;}
+.prod112{ background-image: url('Fancy band 2 pices Rs 25.jpg') ;}
+.prod113{ background-image: url('Butterfly clip 1 Pice Rs30 .jpg') ;}
+.prod114{ background-image: url('flower clip Rs 20 (2).jpg') ;}
+.prod115{ background-image: url('flower clip Rs 20 (3).jpg') ;}
+.prod116{ background-image: url('flower clip Rs 20 (4).jpg') ;}
+.prod117{ background-image: url('flower clip Rs 20.jpg') ;}
+.prod118{ background-image: url('Banana clip 1 Pice Rs 50.jpg') ;}
+.prod119{ background-image: url('double colour clips 1pc Rs 30.jpg') ;}
+.prod120{ background-image: url('glossy flower 1pc Rs50.jpg') ;}
+.prod121{ background-image: url('Glossy Hibiscus clips 1pc Rs50.jpg') ;}
+.prod122{ background-image: url('matte flower clips 1pc Rs40.jpg') ;}
+.prod123{ background-image: url('Matte Hibiscus clips 1pc Rs50.jpg') ;}
+.prod124{ background-image: url('rose clips 1pc Rs40.jpg') ;}
+.prod125{ background-image: url('stone clip Rs40.jpg') ;}
+
+/* Sub-filter row for earring types */
+.sub-filters { display: none; text-align: center; padding: 0 40px 15px; max-width: 1300px; margin: 0 auto }
+.sub-filters.visible { display: flex; justify-content: center;flex-wrap: wrap; }
+.sub-filter-btn { padding: 7px 18px; margin: 4px; background: transparent; border: 1px solid #b8956a; color: #b8956a; cursor: pointer; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s; border-radius: 20px; }
+.sub-filter-btn:hover, .sub-filter-btn.active { background: #b8956a; color: #fff; }
+
+.product-card h4, .card-title { font-size: 20px; margin-bottom: 5px; font-family: 'Cormorant Garamond', serif; font-weight: 500; }
+.price, .card-price { color: #b8956a; font-weight: 500; margin-bottom: 10px; }
+.btn-add { padding: 10px 25px; background: #1a1a1a; color: #fff; border: none; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; transition: background 0.3s; }
+.btn-add:hover { background: #b8956a; }
+
+/* Values */
+.values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; background: #f0ebe3; max-width: none; padding: 80px 40px; }
+.value-item { text-align: center; }
+.value-item h3 { font-size: 32px; color: #b8956a; margin-bottom: 15px; }
+.value-item h4 { font-size: 22px; margin-bottom: 10px; }
+.value-item p { color: #666; }
+
+/* Newsletter */
+.newsletter { text-align: center; background: #1a1a1a; color: #fff; max-width: none; padding: 80px 40px; }
+.newsletter h2 { font-size: 38px; margin-bottom: 15px; }
+.newsletter p { margin-bottom: 30px; opacity: 0.8; }
+.newsletter-form { display: flex; max-width: 450px; margin: auto; }
+.newsletter-form input { flex: 1; padding: 14px 20px; border: none; font-family: inherit; }
+.newsletter-form button { padding: 14px 30px; background: #b8956a; color: #fff; border: none; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; font-size: 12px; }
+
+/* Footer */
+footer { background: #fafaf7; padding: 60px 40px 20px; border-top: 1px solid #eee; }
+.footer-grid { max-width: 1300px; margin: auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+.footer-grid h4 { font-size: 16px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1.5px; }
+.footer-grid a { display: block; margin-bottom: 8px; font-size: 14px; color: #666; cursor: pointer; }
+.footer-grid a:hover { color: #b8956a; }
+.copyright { text-align: center; color: #999; font-size: 13px; padding-top: 20px; border-top: 1px solid #eee; }
+
+/* Page Header */
+.page-header { text-align: center; padding: 80px 40px 40px; }
+.page-header h1 { font-size: 56px; margin-bottom: 10px; }
+.page-header p { color: #888; }
+
+/* Shop Filters */
+.shop-filters { text-align: center; padding: 20px 40px; max-width: 1300px; margin: auto; }
+.filter-btn { padding: 10px 25px; margin: 5px; background: transparent; border: 1px solid #ddd; cursor: pointer; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s; }
+.filter-btn:hover, .filter-btn.active { background: #1a1a1a; color: #fff; border-color: #1a1a1a; }
+
+/* Cart Sidebar */
+.cart-sidebar { position: fixed; right: -400px; top: 0; width: 400px; height: 100vh; background: #fff; box-shadow: -5px 0 20px rgba(0,0,0,0.1); transition: right 0.4s; z-index: 1000; display: flex; flex-direction: column; }
+.cart-sidebar.open { right: 0; }
+.cart-header { display: flex; justify-content: space-between; align-items: center; padding: 25px; border-bottom: 1px solid #eee; }
+.cart-header h3 { font-size: 22px; }
+.close-cart { cursor: pointer; font-size: 18px; }
+.cart-items { flex: 1; overflow-y: auto; padding: 20px; }
+.cart-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #f0f0f0; font-size: 14px; }
+.cart-item .remove { color: #c00; cursor: pointer; }
+.cart-total { padding: 20px; border-top: 1px solid #eee; }
+.cart-total p { font-size: 18px; margin-bottom: 15px; }
+.cart-total button { width: 100%; background: #1a1a1a; color: #fff; padding: 14px; }
+
+/* About */
+.about-section { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.about-content h2 { font-size: 40px; margin-bottom: 20px; }
+.about-content p { color: #555; margin-bottom: 15px; }
+.about-img { height: 500px; background: url('crunchy Rs 10.jpg') center/cover; }
+.mission { background: #f0ebe3; max-width: none; padding: 80px 40px; }
+.mission-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; max-width: 1200px; margin: auto; }
+.mission-grid > div { text-align: center; }
+.mission-grid h3 { font-size: 28px; color: #b8956a; margin-bottom: 15px; }
+.mission-grid h4 { font-size: 22px; margin-bottom: 10px; }
+
+/* Contact */
+.contact-section { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+.contact-info h2 { font-size: 36px; margin-bottom: 15px; }
+.contact-info p { color: #666; margin-bottom: 25px; }
+.contact-item { margin-bottom: 20px; }
+.contact-item strong { display: block; margin-bottom: 5px; letter-spacing: 1px; }
+.contact-item p { color: #666; margin: 0; }
+.contact-form { display: flex; flex-direction: column; gap: 15px; }
+.contact-form input, .contact-form textarea { padding: 14px; border: 1px solid #ddd; font-family: inherit; font-size: 14px; background: #fff; }
+.contact-form textarea { resize: vertical; }
+
+
+/* Responsive */
+@media (max-width: 900px) {
+  .nav-links { display: none; position: absolute; top: 70px; left: 0; right: 0; background: #fafaf7; flex-direction: column; padding: 20px; border-bottom: 1px solid #eee; }
+  .nav-links.open { display: flex; }
+  .hamburger { display: block; }
+  .hero h1 { font-size: 42px; }
+  .category-grid, .product-grid, .shop-grid, .values, .mission-grid, .blog-grid, .footer-grid { grid-template-columns: 1fr; }
+  .about-section, .contact-section { grid-template-columns: 1fr; }
+  .cart-sidebar { width: 100%; right: -100%; }
+  section { padding: 50px 20px; }
+  .page-header h1 { font-size: 36px; }
+  /* Disable 3D on touch/mobile */
+  .card-3d { transform: none !important; }
+  .card-3d .product-img,
+  .card-3d .card-title,
+  .card-3d .card-price,
+  .card-3d .btn-add { transform: none !important; }
+  .card-3d:hover { transform: translateY(-4px) !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="nav-container">
+    <a class="logo" onclick="showPage('home')">Memory Wraps</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+      <li><a onclick="showPage('shop')" id="nav-shop">Shop</a></li>
+      <li><a onclick="showPage('about')" id="nav-about">About</a></li>
+      <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+    </ul>
+    <div class="nav-icons">
+      <a class="cart-icon" onclick="openCart()">🛍 <span id="cart-count">0</span></a>
+      <div class="hamburger" onclick="toggleMenu()">☰</div>
+    </div>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div class="page active" id="home">
+  <section class="hero" style="max-width:none;padding:0;">
+    <div class="hero-content">
+      <p class="hero-subtitle">— MADE WITH LOVE —</p>
+      <h1>Artisan Crafted,<br>Uniquely Yours</h1>
+      <p class="hero-text">Discover jewelry & accessories — each piece thoughtfully crafted to celebrate your individuality.</p>
+      <a class="btn-primary" onclick="showPage('shop')">Shop Collection</a>
+    </div>
+  </section>
+
+  <section class="categories">
+    <h2 class="section-title">Shop By Category</h2>
+    <div class="category-grid five">
+      <div class="category-card" onclick="filterAndGo('bracelet')">
+        <div class="category-img cat1"></div>
+        <h3>Bracelets</h3>
+        <a>Explore →</a>
+      </div>
+      <div class="category-card" onclick="filterAndGo('chain')">
+        <div class="category-img cat2"></div>
+        <h3>Chains</h3>
+        <a>Explore →</a>
+      </div>
+      <div class="category-card" onclick="filterAndGo('earring')">
+        <div class="category-img cat3"></div>
+        <h3>Earrings</h3>
+        <a>Explore →</a>
+      </div>
+      <div class="category-card" onclick="filterAndGo('hair')">
+        <div class="category-img cat4"></div>
+        <h3>Hair Accessories</h3>
+        <a>Explore →</a>
+      </div>
+      <div class="category-card" onclick="filterAndGo('phonecharm')">
+        <div class="category-img cat5"></div>
+        <h3>Phone Charms</h3>
+        <a>Explore →</a>
+      </div>
+      <div class="category-card" onclick="filterAndGo('anklets')">
+        <div class="category-img cat6"></div>
+        <h3>Anklets</h3>
+        <a>Explore →</a>
+    </div>
+  </section>
+
+  <section class="featured">
+    <h2 class="section-title">Bestsellers</h2>
+    <p class="section-subtitle">Pieces our customers love</p>
+    <div class="product-grid">
+      <!-- 3D Card: Pearl Drop Clip -->
+      <div class="card-container-3d">
+        <div class="card-3d product-card">
+          <div class="product-img prod1"></div>
+          <h4 class="card-title">Stainless Steel Bracelets</h4>
+          <p class="price card-price">₹110</p>
+        </div>
+      </div>
+      <!-- 3D Card: Gold Chain Bracelet -->
+      <div class="card-container-3d">
+        <div class="card-3d product-card">
+          <div class="product-img prod10"></div>
+          <h4 class="card-title">Stainless Steel Bracelet 10</h4>
+          <p class="price card-price">₹200</p>
+        </div>
+      </div>
+      <!-- 3D Card: Crystal Hair Clip -->
+      <div class="card-container-3d">
+        <div class="card-3d product-card">
+          <div class="product-img prod124"></div>
+          <h4 class="card-title">Rose Clip</h4>
+          <p class="price card-price">₹40</p>
+        </div>
+      </div>
+      <!-- 3D Card: Minimal Charm Bracelet -->
+      <div class="card-container-3d">
+        <div class="card-3d product-card">
+          <div class="product-img prod4"></div>
+          <h4 class="card-title">Minimal Charm Bracelet</h4>
+          <p class="price card-price">₹200</p>
+        </div>
+      </div>
+    </div>
+    <div class="center"><a class="btn-secondary" onclick="showPage('shop')">View All</a></div>
+  </section>
+
+  <section class="values">
+    <div class="value-item"><h3>✦</h3><h4>Handmade With Love</h4><p>Every piece crafted by hand with passion & precision.</p></div>
+    <div class="value-item"><h3>✦</h3><h4>Artisan Quality</h4><p>Unique designs you won't find anywhere else.</p></div>
+    <div class="value-item"><h3>✦</h3><h4>Pan-India Shipping</h4><p>Delivered straight to your doorstep, with care.</p></div>
+  </section>
+ 
+
+  <section class="newsletter">
+    <h2>Join the Artisan Circle</h2>
+    <p>Be the first to know about new drops, exclusive offers & styling tips.</p>
+    <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+      <input type="email" placeholder="Enter your email" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </section>
+</div>
+
+<!-- SHOP PAGE -->
+<div class="page" id="shop">
+  <section class="page-header">
+    <h1>Shop All</h1>
+    <p>Handcrafted accessories for every mood</p>
+  </section>
+
+  <section class="shop-filters">
+    <button class="filter-btn active" onclick="filterProducts('all', this)">All</button>
+    <button class="filter-btn" onclick="filterProducts('bracelet', this)">Bracelets</button>
+    <button class="filter-btn" onclick="filterProducts('chain', this)">Chains</button>
+    <button class="filter-btn" onclick="filterProducts('earring', this)">Earrings</button>
+    <button class="filter-btn" onclick="filterProducts('hair', this)">Hair Accessories</button>
+    <button class="filter-btn" onclick="filterProducts('phonecharm', this)">Phone Charms</button>
+    <button class="filter-btn" onclick="filterProducts('anklets', this)">Anklets</button>
+  </section>
+
+  <!-- Earring sub-filters (only shown when Earrings filter is active) -->
+  <div class="sub-filters" id="earringSubFilters">
+    <button class="sub-filter-btn active" onclick="filterEarrings('earring', this)">All Earrings</button>
+    <button class="sub-filter-btn" onclick="filterEarrings('leaf-jhumka', this)">Leaf Shape Jhumka</button>
+    <button class="sub-filter-btn" onclick="filterEarrings('lotus-jhumka', this)">Lotus Jhumka</button>
+    <button class="sub-filter-btn" onclick="filterEarrings('stud', this)">Stud Earrings</button>
+  </div>
+
+  <section class="shop-grid" id="shopGrid">
+
+    <!-- ── BRACELETS ── -->
+    <div class="card-container-3d" data-cat="bracelet">
+      <div class="card-3d product-card">
+        <div class="product-img prod1"></div>
+        <h4 class="card-title">Stainless Steel Bracelet 1</h4>
+        <p class="price card-price">₹110</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Bracelet 1', 110)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="bracelet">
+      <div class="card-3d product-card">
+        <div class="product-img prod2"></div>
+        <h4 class="card-title">Stainless Steel Bracelet 2</h4>
+        <p class="price card-price">₹110</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Bracelet 2', 110)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="bracelet">
+      <div class="card-3d product-card">
+        <div class="product-img prod3"></div>
+        <h4 class="card-title">Stainless Steel Bracelet 3</h4>
+        <p class="price card-price">₹200</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Bracelet 3', 200)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="bracelet">
+      <div class="card-3d product-card">
+        <div class="product-img prod4"></div>
+        <h4 class="card-title">Stainless Steel Bracelet 4</h4>
+        <p class="price card-price">₹200</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Bracelet 4', 200)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="bracelet">
+      <div class="card-3d product-card">
+        <div class="product-img prod5"></div>
+        <h4 class="card-title">Stainless Steel Bracelet 5</h4>
+        <p class="price card-price">₹110</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Bracelet 5', 200)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="bracelet">
+      <div class="card-3d product-card">
+        <div class="product-img prod6"></div>
+        <h4 class="card-title">Stainless Steel Bracelet 6</h4>
+        <p class="price card-price">₹200</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Bracelet 6', 200)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="bracelet">
+      <div class="card-3d product-card">
+        <div class="product-img prod7"></div>
+        <h4 class="card-title">Stainless Steel Bracelet 7</h4>
+        <p class="price card-price">₹200</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Bracelet 7', 200)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="bracelet">
+      <div class="card-3d product-card">
+        <div class="product-img prod8"></div>
+        <h4 class="card-title">Stainless Steel Bracelet 8</h4>
+        <p class="price card-price">₹200</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Bracelet 8', 200)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="bracelet">
+      <div class="card-3d product-card">
+        <div class="product-img prod9"></div>
+        <h4 class="card-title">Stainless Steel Bracelet 9</h4>
+        <p class="price card-price">₹200</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Bracelet 9', 200)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="bracelet">
+      <div class="card-3d product-card">
+        <div class="product-img prod10"></div>
+        <h4 class="card-title">Stainless Steel Bracelet 10</h4>
+        <p class="price card-price">₹200</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Bracelet 10', 200)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="bracelet">
+      <div class="card-3d product-card">
+        <div class="product-img prod11"></div>
+        <h4 class="card-title">Stainless Steel Bracelet 11</h4>
+        <p class="price card-price">₹200</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Bracelet 11', 200)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="bracelet">
+      <div class="card-3d product-card">
+        <div class="product-img prod12"></div>
+        <h4 class="card-title">Stainless Steel Bracelet 12</h4>
+        <p class="price card-price">₹200</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Bracelet 12', 200)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="bracelet">
+      <div class="card-3d product-card">
+        <div class="product-img prod13"></div>
+        <h4 class="card-title">Stone Bracelet 1</h4>
+        <p class="price card-price">₹125</p>
+        <button class="btn-add" onclick="addToCart('Stone Bracelet 1', 125)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="bracelet">
+      <div class="card-3d product-card">
+        <div class="product-img prod14"></div>
+        <h4 class="card-title">Stone Bracelet 2</h4>
+        <p class="price card-price">₹125</p>
+        <button class="btn-add" onclick="addToCart('Stone Bracelet 2', 125)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="bracelet">
+      <div class="card-3d product-card">
+        <div class="product-img prod15"></div>
+        <h4 class="card-title">Disco Ball Bangle Bracelet</h4>
+        <p class="price card-price">₹100</p>
+        <button class="btn-add" onclick="addToCart('Disco Ball Bangle Bracelet', 100)">Add to Cart</button>
+      </div>
+    </div>
+    
+
+    <!-- ── CHAINS ── -->
+    
+    <div class="card-container-3d" data-cat="chain">
+      <div class="card-3d product-card">
+        <div class="product-img prod20"></div>
+        <h4 class="card-title">Stainless Steel Chain 1</h4>
+        <p class="price card-price">₹100</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Chain 1', 100)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="chain">
+      <div class="card-3d product-card">
+        <div class="product-img prod21"></div>
+        <h4 class="card-title">Stainless Steel Chain 2</h4>
+        <p class="price card-price">₹100</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Chain 2', 100)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="chain">
+      <div class="card-3d product-card">
+        <div class="product-img prod22"></div>
+        <h4 class="card-title">Stainless Steel Chain 3</h4>
+        <p class="price card-price">₹100</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Chain 3', 100)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="chain">
+      <div class="card-3d product-card">
+        <div class="product-img prod23"></div>
+        <h4 class="card-title">Stainless Steel Chain 4</h4>
+        <p class="price card-price">₹100</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Chain 4', 100)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="chain">
+      <div class="card-3d product-card">
+        <div class="product-img prod24"></div>
+        <h4 class="card-title">Stainless Steel Chain 5</h4>
+        <p class="price card-price">₹100</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Chain 5', 100)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="chain">
+      <div class="card-3d product-card">
+        <div class="product-img prod25"></div>
+        <h4 class="card-title">Stainless Steel Chain 6</h4>
+        <p class="price card-price">₹100</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Chain 6', 100)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="chain">
+      <div class="card-3d product-card">
+        <div class="product-img prod26"></div>
+        <h4 class="card-title">Stainless Steel Chain 7</h4>
+        <p class="price card-price">₹150</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Chain 7', 150)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="chain">
+      <div class="card-3d product-card">
+        <div class="product-img prod27"></div>
+        <h4 class="card-title">Stainless Steel Chain 8</h4>
+        <p class="price card-price">₹150</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Chain 8', 150)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="chain">
+      <div class="card-3d product-card">
+        <div class="product-img prod27"></div>
+        <h4 class="card-title">Stainless Steel Chain 8</h4>
+        <p class="price card-price">₹150</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Chain 8', 150)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="chain">
+      <div class="card-3d product-card">
+        <div class="product-img prod28"></div>
+        <h4 class="card-title">Stainless Steel Chain 9</h4>
+        <p class="price card-price">₹150</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Chain 9', 150)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="chain">
+      <div class="card-3d product-card">
+        <div class="product-img prod29"></div>
+        <h4 class="card-title">Stainless Steel Chain 10</h4>
+        <p class="price card-price">₹150</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Chain 10', 150)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="chain">
+      <div class="card-3d product-card">
+        <div class="product-img prod30"></div>
+        <h4 class="card-title">Stainless Steel Chain 11</h4>
+        <p class="price card-price">₹150</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Chain 11', 150)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="chain">
+      <div class="card-3d product-card">
+        <div class="product-img prod31"></div>
+        <h4 class="card-title">Stainless Steel Chain 12</h4>
+        <p class="price card-price">₹150</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Chain 12', 150)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="chain">
+      <div class="card-3d product-card">
+        <div class="product-img prod32"></div>
+        <h4 class="card-title">Stainless Steel Chain 13</h4>
+        <p class="price card-price">₹175</p>
+        <button class="btn-add" onclick="addToCart('Stainless Steel Chain 13', 175)">Add to Cart</button>
+      </div>
+    </div>
+    
+    <!-- ── EARRINGS — Leaf Shape Jhumka ── -->
+    <div class="card-container-3d" data-cat="earring" data-subcat="leaf-jhumka">
+      <div class="card-3d product-card">
+        <div class="product-img prod33"></div>
+        <h4 class="card-title">Leaf Jhumka 1</h4>
+        <p class="price card-price">₹150</p>
+        <button class="btn-add" onclick="addToCart('Leaf Jhumka 1', 150)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="leaf-jhumka">
+      <div class="card-3d product-card">
+        <div class="product-img prod34"></div>
+        <h4 class="card-title">Leaf Jhumka 2</h4>
+        <p class="price card-price">₹150</p>
+        <button class="btn-add" onclick="addToCart('Leaf Jhumka 2', 150)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="leaf-jhumka">
+      <div class="card-3d product-card">
+        <div class="product-img prod35"></div>
+        <h4 class="card-title">Leaf Jhumka 3</h4>
+        <p class="price card-price">₹150</p>
+        <button class="btn-add" onclick="addToCart('Leaf Jhumka 3', 150)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="leaf-jhumka">
+      <div class="card-3d product-card">
+        <div class="product-img prod36"></div>
+        <h4 class="card-title">Leaf Jhumka 4</h4>
+        <p class="price card-price">₹150</p>
+        <button class="btn-add" onclick="addToCart('Leaf Jhumka 4', 150)">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- ── EARRINGS — Lotus Jhumka ── -->
+    <div class="card-container-3d" data-cat="earring" data-subcat="lotus-jhumka">
+      <div class="card-3d product-card">
+        <div class="product-img prod37"></div>
+        <h4 class="card-title">Lotus Jhumka 1</h4>
+        <p class="price card-price">₹70</p>
+        <button class="btn-add" onclick="addToCart('Lotus Jhumka 1', 70)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="lotus-jhumka">
+      <div class="card-3d product-card">
+        <div class="product-img prod38"></div>
+        <h4 class="card-title">Lotus Jhumka 2</h4>
+        <p class="price card-price">70</p>
+        <button class="btn-add" onclick="addToCart('Lotus Jhumka 2', 70)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="lotus-jhumka">
+      <div class="card-3d product-card">
+        <div class="product-img prod39"></div>
+        <h4 class="card-title">Lotus Jhumka 3</h4>
+        <p class="price card-price">₹70</p>
+        <button class="btn-add" onclick="addToCart('Lotus Jhumka 3', 70)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="lotus-jhumka">
+      <div class="card-3d product-card">
+        <div class="product-img prod40"></div>
+        <h4 class="card-title">Lotus Jhumka 4</h4>
+        <p class="price card-price">₹70</p>
+        <button class="btn-add" onclick="addToCart('Lotus Jhumka 4', 70)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="lotus-jhumka">
+      <div class="card-3d product-card">
+        <div class="product-img prod41"></div>
+        <h4 class="card-title">Lotus Jhumka 5</h4>
+        <p class="price card-price">₹70</p>
+        <button class="btn-add" onclick="addToCart('Lotus Jhumka 5', 70)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="lotus-jhumka">
+      <div class="card-3d product-card">
+        <div class="product-img prod42"></div>
+        <h4 class="card-title">Lotus Jhumka 6</h4>
+        <p class="price card-price">₹70</p>
+        <button class="btn-add" onclick="addToCart('Lotus Jhumka 6', 70)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="lotus-jhumka">
+      <div class="card-3d product-card">
+        <div class="product-img prod43"></div>
+        <h4 class="card-title">Lotus Jhumka 7</h4>
+        <p class="price card-price">₹150</p>
+        <button class="btn-add" onclick="addToCart('Lotus Jhumka 7', 150)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="lotus-jhumka">
+      <div class="card-3d product-card">
+        <div class="product-img prod44"></div>
+        <h4 class="card-title">Lotus Jhumka 8</h4>
+        <p class="price card-price">₹125</p>
+        <button class="btn-add" onclick="addToCart('Lotus Jhumka 8', 125)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="lotus-jhumka">
+      <div class="card-3d product-card">
+        <div class="product-img prod45"></div>
+        <h4 class="card-title">Lotus Jhumka 9</h4>
+        <p class="price card-price">₹125</p>
+        <button class="btn-add" onclick="addToCart('Lotus Jhumka 9', 125)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="lotus-jhumka">
+      <div class="card-3d product-card">
+        <div class="product-img prod46"></div>
+        <h4 class="card-title">Lotus Jhumka 10</h4>
+        <p class="price card-price">₹100</p>
+        <button class="btn-add" onclick="addToCart('Lotus Jhumka 10', 100)">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- ── EARRINGS — Stud Earrings ── -->
+    <div class="card-container-3d" data-cat="earring" data-subcat="stud">
+      <div class="card-3d product-card">
+        <div class="product-img prod47"></div>
+        <h4 class="card-title">Stud Earring 1</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('Stud Earring 1', 20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="stud">
+      <div class="card-3d product-card">
+        <div class="product-img prod48"></div>
+        <h4 class="card-title">Stud Earring 2 (Small)</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('Stud Earring 2 (Small)', 20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="stud">
+      <div class="card-3d product-card">
+        <div class="product-img prod49"></div>
+        <h4 class="card-title">Stud Earring 3</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('Stud Earring 3', 20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="stud">
+      <div class="card-3d product-card">
+        <div class="product-img prod50"></div>
+        <h4 class="card-title">Stud Earring 4 (Medium)</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Stud Earring 4 (Medium)', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="stud">
+      <div class="card-3d product-card">
+        <div class="product-img prod51"></div>
+        <h4 class="card-title">Stud Earring 5</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Stud Earring 5', 40)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="stud">
+      <div class="card-3d product-card">
+        <div class="product-img prod52"></div>
+        <h4 class="card-title">Stud Earring 6</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Stud Earring 6', 40)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="stud">
+      <div class="card-3d product-card">
+        <div class="product-img prod53"></div>
+        <h4 class="card-title">Stud Earring 7</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Stud Earring 7', 40)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="stud">
+      <div class="card-3d product-card">
+        <div class="product-img prod54"></div>
+        <h4 class="card-title">Stud Earring 8</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Stud Earring 8', 40)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="stud">
+      <div class="card-3d product-card">
+        <div class="product-img prod55"></div>
+        <h4 class="card-title">Stud Earring 9</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Stud Earring 9', 40)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="stud">
+      <div class="card-3d product-card">
+        <div class="product-img prod56"></div>
+        <h4 class="card-title">Stud Earring 10 (Large)</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Stud Earring 10 (Large)', 40)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="stud">
+      <div class="card-3d product-card">
+        <div class="product-img prod57"></div>
+        <h4 class="card-title">Stud Earring 11</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Stud Earring 11', 40)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="earring" data-subcat="stud">
+      <div class="card-3d product-card">
+        <div class="product-img prod58"></div>
+        <h4 class="card-title">Stud Earring 12</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Stud Earring 12', 40)">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- ── HAIR ACCESSORIES ── -->
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod95"></div>
+        <h4 class="card-title">Black Clip Combo</h4>
+        <p class="price card-price">₹45</p>
+        <button class="btn-add" onclick="addToCart('Black Clip Combo', 45)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod96"></div>
+        <h4 class="card-title">Butterfly Clips 6pcs</h4>
+        <p class="price card-price">₹12</p>
+        <button class="btn-add" onclick="addToCart('Butterfly Clips 6pcs', 12)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod97"></div>
+        <h4 class="card-title">Butterfly Combo </h4>
+        <p class="price card-price">₹60</p>
+        <button class="btn-add" onclick="addToCart('Butterfly Combo', 60)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod98"></div>
+        <h4 class="card-title">Flower 3 pc Clip</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Flower 3 pc Clip',30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod99"></div>
+        <h4 class="card-title">Flower clips 6pcs Combo</h4>
+        <p class="price card-price">₹12</p>
+        <button class="btn-add" onclick="addToCart('Flower Clips 6pcs',12)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod100"></div>
+        <h4 class="card-title">Hibiscus Clip 3 pc Combo</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Hibiscus Clip 3 pc',30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod101"></div>
+        <h4 class="card-title">Normal Clip 3 pices Combo</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('Normal Clip 3 pices Combo',20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod102"></div>
+        <h4 class="card-title">5 Petal Flower Clip 1pc </h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('5 Petal Flower Clip 1pc',20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod103"></div>
+        <h4 class="card-title">Double-Colour Flower Clips 1pc</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('Double-Colour Flower Clips 1pc',20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod104"></div>
+        <h4 class="card-title">Glass Sunflower clip 1pc</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('Glass Sunflower clip 1pc',20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod105"></div>
+        <h4 class="card-title">Glossy Flower Clips 1pc</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('Glossy Flower Clips 1pc',20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod106"></div>
+        <h4 class="card-title">Matte Butterfly Clips 1pc</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('Matte Butterfly Clips 1pc',20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod107"></div>
+        <h4 class="card-title">Matte Sunflower Clip 1pc</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('Matte Sunflower Clip 1pc',20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod108"></div>
+        <h4 class="card-title">Normal Clip 1pc</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('Normal Clip 1pc',20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod109"></div>
+        <h4 class="card-title">Transparent Clips 1pc</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('Transparent Clips 1pc',20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod110"></div>
+        <h4 class="card-title">Black Band  5 pices</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Black Band  5 pices',30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod111"></div>
+        <h4 class="card-title">Crunchy</h4>
+        <p class="price card-price">₹10</p>
+        <button class="btn-add" onclick="addToCart('Crunchy',10)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod112"></div>
+        <h4 class="card-title">Fancy Band 2 pieces</h4>
+        <p class="price card-price">₹25</p>
+        <button class="btn-add" onclick="addToCart('Fancy Band 2 pieces',25)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod113"></div>
+        <h4 class="card-title">Butterfly Clip 1 Piece</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Butterfly Clip 1 Piece',30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod114"></div>
+        <h4 class="card-title">flower Clip</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('flower Clip',20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod115"></div>
+        <h4 class="card-title">flower Clip</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('flower Clip',20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod116"></div>
+        <h4 class="card-title">flower Clip</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('flower Clip',20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod117"></div>
+        <h4 class="card-title">flower Clip</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('flower Clip',20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod118"></div>
+        <h4 class="card-title">Banana clip 1 Piece</h4>
+        <p class="price card-price">₹50</p>
+        <button class="btn-add" onclick="addToCart('Banana clip 1 Piece',50)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod119"></div>
+        <h4 class="card-title">Double Colour Clips 1 piece</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Double Colour Clips 1pc',30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod120"></div>
+        <h4 class="card-title">Glossy Flower 1pc</h4>
+        <p class="price card-price">₹50</p>
+        <button class="btn-add" onclick="addToCart('Glossy Flower 1pc',50)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod121"></div>
+        <h4 class="card-title">Glossy Hibiscus Clip 1pc</h4>
+        <p class="price card-price">₹50</p>
+        <button class="btn-add" onclick="addToCart('Glossy Hibiscus Clip 1pc',50)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod122"></div>
+        <h4 class="card-title">Matte Flower Clip 1pc</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Matte Flower Clip 1pc',40)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod123"></div>
+        <h4 class="card-title">Matte Hibiscus Clip 1pc</h4>
+        <p class="price card-price">₹50</p>
+        <button class="btn-add" onclick="addToCart('Matte Hibiscus Clip 1pc',50)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod124"></div>
+        <h4 class="card-title">Rose Clips 1pc</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Rose Clip 1pc',40)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="hair">
+      <div class="card-3d product-card">
+        <div class="product-img prod125"></div>
+        <h4 class="card-title">Stone Clip</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Stone Clip',40)">Add to Cart</button>
+      </div>
+    </div>
+
+    <!-- ── PHONE CHARMS ── -->
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod59"></div>
+        <h4 class="card-title">Phone Charm 1</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 1', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod60"></div>
+        <h4 class="card-title">Phone Charm 2</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 2', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod61"></div>
+        <h4 class="card-title">Phone Charm 3</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 3', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod62"></div>
+        <h4 class="card-title">Phone Charm 4</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 4', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod63"></div>
+        <h4 class="card-title">Phone Charm 5</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 5', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod64"></div>
+        <h4 class="card-title">Phone Charm 6</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 6', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod65"></div>
+        <h4 class="card-title">Phone Charm 7</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 7', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod66"></div>
+        <h4 class="card-title">Phone Charm 8</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 8', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod67"></div>
+        <h4 class="card-title">Phone Charm 9</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 9', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod68"></div>
+        <h4 class="card-title">Phone Charm 10</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 10', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod69"></div>
+        <h4 class="card-title">Phone Charm 11</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 11', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod70"></div>
+        <h4 class="card-title">Phone Charm 12</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 12', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod71"></div>
+        <h4 class="card-title">Phone Charm 13</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 13', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod72"></div>
+        <h4 class="card-title">Phone Charm 14</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 14', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod73"></div>
+        <h4 class="card-title">Phone Charm 15</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 15', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod74"></div>
+        <h4 class="card-title">Phone Charm 16</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 16', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod75"></div>
+        <h4 class="card-title">Phone Charm 17</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 17', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod76"></div>
+        <h4 class="card-title">Phone Charm 18</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 18', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod77"></div>
+        <h4 class="card-title">Phone Charm 19</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 19', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod78"></div>
+        <h4 class="card-title">Phone Charm 20</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 20', 40)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod79"></div>
+        <h4 class="card-title">Phone Charm 21</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 21', 40)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod80"></div>
+        <h4 class="card-title">Phone Charm 22</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 22', 40)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod81"></div>
+        <h4 class="card-title">Phone Charm 23</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 23', 40)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod82"></div>
+        <h4 class="card-title">Phone Charm 24</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 24', 40)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod83"></div>
+        <h4 class="card-title">Phone Charm 25</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 25', 40)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod84"></div>
+        <h4 class="card-title">Phone Charm 26</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 20', 40)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod85"></div>
+        <h4 class="card-title">Phone Charm 27</h4>
+        <p class="price card-price">₹40</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 20', 40)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod86"></div>
+        <h4 class="card-title">Phone Charm 28</h4>
+        <p class="price card-price">₹50</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 28', 50)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod87"></div>
+        <h4 class="card-title">Phone Charm 29</h4>
+        <p class="price card-price">₹50</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 29', 50)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod88"></div>
+        <h4 class="card-title">Phone Charm 30</h4>
+        <p class="price card-price">₹50</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 30', 50)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod89"></div>
+        <h4 class="card-title">Phone Charm 31</h4>
+        <p class="price card-price">₹50</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 31', 50)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod90"></div>
+        <h4 class="card-title">Phone Charm 32</h4>
+        <p class="price card-price">₹50</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 32', 50)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod91"></div>
+        <h4 class="card-title">Phone Charm 33</h4>
+        <p class="price card-price">₹35</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 33', 35)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod92"></div>
+        <h4 class="card-title">Phone Charm 34</h4>
+        <p class="price card-price">₹70</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 34', 70)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod93"></div>
+        <h4 class="card-title">Phone Charm 35</h4>
+        <p class="price card-price">₹70</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 35', 70)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="phonecharm">
+      <div class="card-3d product-card">
+        <div class="product-img prod94"></div>
+        <h4 class="card-title">Phone Charm 36</h4>
+        <p class="price card-price">₹70</p>
+        <button class="btn-add" onclick="addToCart('Phone Charm 36', 70)">Add to Cart</button>
+      </div>
+    </div>
+    <!-- ── PHONE CHARMS ── -->
+     <div class="card-container-3d" data-cat="anklets">
+      <div class="card-3d product-card">
+        <div class="product-img prod16"></div>
+        <h4 class="card-title">Evil-Eye Anklet 1</h4>
+        <p class="price card-price">₹30</p>
+        <button class="btn-add" onclick="addToCart('Evil-Eye Anklet 1', 30)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="anklets">
+      <div class="card-3d product-card">
+        <div class="product-img prod17"></div>
+        <h4 class="card-title">Evil-Eye Anklet 2</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('Evil-Eye Anklet 2', 20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="anklets">
+      <div class="card-3d product-card">
+        <div class="product-img prod18"></div>
+        <h4 class="card-title">Evil-Eye Anklet 3</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('Evil-Eye Anklet 3', 20)">Add to Cart</button>
+      </div>
+    </div>
+    <div class="card-container-3d" data-cat="anklets">
+      <div class="card-3d product-card">
+        <div class="product-img prod19"></div>
+        <h4 class="card-title">Evil-Eye Anklet 4</h4>
+        <p class="price card-price">₹20</p>
+        <button class="btn-add" onclick="addToCart('Evil-Eye Anklet 4', 20)">Add to Cart</button>
+      </div>
+    </div>
+
+
+
+
+
+
+  </section>
+</div>
+
+
+<!-- ABOUT PAGE -->
+<div class="page" id="about">
+  <section class="page-header">
+    <h1>Our Story</h1>
+    <p>Accessories made with love, meant for you</p>
+  </section>
+  <section class="about-section">
+    <div class="about-content">
+      <h2>Who We Are</h2>
+      <p><strong></strong> We are passionate about bringing you trendy and elegant accessories that add a special touch to your style.</p>
+      <p>We carefully choose products with love and focus on quality, style, and customer satisfaction.</p>
+      <p>Follow our journey on Instagram <a href="https://www.instagram.com/artisan_gnasarmlets" target="_blank" style="color:#b8956a;">@artisan_gnasarmlets</a> to see behind-the-scenes & new drops.</p>
+    </div>
+    <div class="about-img"></div>
+  </section>
+  <section class="mission">
+    <h2 class="section-title">What We Stand For</h2>
+    <div class="mission-grid">
+      <div><h3>◇</h3><h4>Handcrafted</h4><p>Each piece made by hand — never mass-produced.</p></div>
+      <div><h3>◇</h3><h4>Affordable Prices</h4><p>Artisan quality without the artisan price tag.</p></div>
+      <div><h3>◇</h3><h4>Made With Love</h4><p>Crafted with care for teens, students & every girl.</p></div>
+    </div>
+  </section>
+</div>
+
+
+<!-- CONTACT PAGE -->
+<div class="page" id="contact">
+  <section class="page-header">
+    <h1>Get In Touch</h1>
+    <p>We'd love to hear from you</p>
+  </section>
+  <section class="contact-section">
+    <div class="contact-info">
+      <h2>Let's Connect</h2>
+      <p>Have a question, custom request, or just want to say hi? Reach out through any of these:</p>
+      <div class="contact-item"><strong>📱 Instagram (Preferred)</strong><p><a href="https://www.instagram.com/artisan_gnasarmlets" target="_blank" style="color:#b8956a;">@artisan_gnasarmlets</a></p></div>
+      <div class="contact-item"><strong>💬 DM to Order</strong><p>Slide into our DMs for orders & custom requests!</p></div>
+      <div class="contact-item"><strong>📧 Email</strong><p>memorywraps15@gmail.com</p></div>
+    </div>
+    <form class="contact-form" onsubmit="sendMessage(event)">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <input type="text" placeholder="Subject">
+      <textarea placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit" class="btn-primary">Send Message</button>
+    </form>
+  </section>
+</div>
+
+<!-- CART SIDEBAR -->
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3>Your Cart</h3>
+    <span class="close-cart" onclick="closeCart()">✕</span>
+  </div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-total">
+    <p>Total: ₹<span id="cartTotal">0</span></p>
+    <button class="btn-primary" onclick="checkout()">Order via Instagram DM</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <h3 class="logo">Memory Wraps</h3>
+      <p>Handcrafted accessories made with love.</p>
+    </div>
+    <div>
+      <h4>Shop</h4>
+      <a onclick="filterAndGo('bracelet')">Bracelets</a>
+      <a onclick="filterAndGo('chain')">Chains</a>
+      <a onclick="filterAndGo('earring')">Earrings</a>
+      <a onclick="filterAndGo('hair')">Hair Accessories</a>
+      <a onclick="filterAndGo('phonecharm')">Phone Charms</a>
+      <a onclick="filterAndGo('anklets')">Anklets</a>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <a onclick="showPage('about')">About</a>
+      <a onclick="showPage('contact')">Contact</a>
+    </div>
+    <div>
+      <h4>Follow</h4>
+      <a href="https://www.instagram.com/artisan_gnasarmlets" target="_blank">Instagram</a>
+      <a href="https://www.instagram.com/artisan_gnasarmlets" target="_blank">DM to Order</a>
+    </div>
+  </div>
+  <p class="copyright">© 2026 Memory Wraps. All rights reserved.</p>
+</footer>
+
+<script>
+let cart = [];
+
+// =============================================
+// 3D CARD TILT EFFECT — adapted from React CardContainer
+// Mirrors the mousemove rotateX/rotateY logic from the original
+// =============================================
+function init3DCards() {
+  document.querySelectorAll('.card-container-3d').forEach(container => {
+    const card = container.querySelector('.card-3d');
+    if (!card) return;
+
+    container.addEventListener('mousemove', (e) => {
+      const { left, top, width, height } = container.getBoundingClientRect();
+      // Same formula as the React component: divide by 25
+      const x = (e.clientX - left - width / 2) / 25;
+      const y = (e.clientY - top - height / 2) / 25;
+      card.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+    });
+
+    container.addEventListener('mouseleave', () => {
+      // Reset like the React handleMouseLeave
+      card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+    });
+
+    container.addEventListener('mouseenter', () => {
+      card.style.boxShadow = '0 25px 50px rgba(0,0,0,0.12)';
+    });
+
+    container.addEventListener('mouseleave', () => {
+      card.style.boxShadow = '';
+    });
+  });
+}
+
+// =============================================
+// Page navigation
+// =============================================
+function showPage(pageId) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(pageId).classList.add('active');
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('active'));
+  const navLink = document.getElementById('nav-' + pageId);
+  if (navLink) navLink.classList.add('active');
+  window.scrollTo(0, 0);
+  document.getElementById('navLinks').classList.remove('open');
+  // Re-init 3D cards whenever a new page is shown
+  setTimeout(init3DCards, 50);
+}
+
+function toggleMenu() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// =============================================
+// Cart
+// =============================================
+function addToCart(name, price) {
+  cart.push({ name, price });
+  updateCart();
+  openCart();
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCart();
+}
+
+function updateCart() {
+  document.getElementById('cart-count').textContent = cart.length;
+  const cartItems = document.getElementById('cartItems');
+  cartItems.innerHTML = cart.length === 0
+    ? '<p style="text-align:center;color:#999;padding:20px;">Your cart is empty</p>'
+    : cart.map((item, i) => `<div class="cart-item"><div><strong>${item.name}</strong><br>₹${item.price}</div><span class="remove" onclick="removeFromCart(${i})">✕</span></div>`).join('');
+  document.getElementById('cartTotal').textContent = cart.reduce((sum, item) => sum + item.price, 0);
+}
+
+function openCart() { document.getElementById('cartSidebar').classList.add('open'); }
+function closeCart() { document.getElementById('cartSidebar').classList.remove('open'); }
+
+function checkout() {
+  if (cart.length === 0) { alert('Your cart is empty!'); return; }
+  const items = cart.map(i => `${i.name} (₹${i.price})`).join(', ');
+  const total = cart.reduce((s, i) => s + i.price, 0);
+  const msg = `Hi Memory Wraps! I'd like to order: ${items}. Total: ₹${total}`;
+  navigator.clipboard.writeText(msg).then(() => {
+    alert('✨ Order details copied! Paste it in our Instagram DM to confirm your order.');
+    window.open('https://www.instagram.com/artisan_gnasarmlets', '_blank');
+  }).catch(() => {
+    alert('Send us this message on Instagram:\n\n' + msg);
+    window.open('https://www.instagram.com/artisan_gnasarmlets', '_blank');
+  });
+}
+
+// =============================================
+// Shop filters — 5 categories + earring sub-filters
+// =============================================
+function filterProducts(category, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  // Show/hide earring sub-filters
+  const subFilters = document.getElementById('earringSubFilters');
+  if (category === 'earring') {
+    subFilters.classList.add('visible');
+    // Reset sub-filter to "All Earrings"
+    document.querySelectorAll('.sub-filter-btn').forEach((b,i) => b.classList.toggle('active', i===0));
+  } else {
+    subFilters.classList.remove('visible');
+  }
+
+  document.querySelectorAll('#shopGrid .card-container-3d').forEach(wrapper => {
+    wrapper.style.display = (category === 'all' || wrapper.dataset.cat === category) ? 'flex' : 'none';
+  });
+}
+
+function filterEarrings(subcat, btn) {
+  document.querySelectorAll('.sub-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#shopGrid .card-container-3d[data-cat="earring"]').forEach(wrapper => {
+    wrapper.style.display = (subcat === 'earring' || wrapper.dataset.subcat === subcat) ? 'flex' : 'none';
+  });
+}
+
+// Navigate to shop and activate a category filter
+function filterAndGo(category) {
+  showPage('shop');
+  setTimeout(() => {
+    const btn = document.querySelector(`.filter-btn[onclick="filterProducts('${category}', this)"]`);
+    if (btn) filterProducts(category, btn);
+  }, 60);
+}
+
+function subscribeNewsletter(e) { e.preventDefault(); alert('Thanks for subscribing! 💌'); e.target.reset(); }
+function sendMessage(e) { e.preventDefault(); alert('Message sent! We\'ll get back to you soon. ✨'); e.target.reset(); }
+
+// Init 3D cards on first load
+document.addEventListener('DOMContentLoaded', init3DCards);
+</script>
+
+</body>
+</html>
